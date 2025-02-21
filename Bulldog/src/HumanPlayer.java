@@ -1,14 +1,12 @@
-
 /********************************************************/
-/* David Levine                                         */
-/* Login ID: david.b.levine@maine.edu                   */
-/* COS 497, Summer 2024                                 */
-/* Programming Assignment 6                             */
-/* HumanPlayer class: extends Player class               */
-/*           A HumanPlayer rolls until user says to stop */
-/*      See Kettering University, CS-101, Prog 6        */
+/* Courtney Jackson                                     */
+/* Login ID: courtney.jackson@maine.edu                 */
+/* COS 420, Spring 2025                                 */
+/* Programming Assignment 4                             */
+/* HumanPlayer class: extends Player class              */
+/*          A HumanPlayer rolls until user says to stop */
 /********************************************************/
-import java.util.Scanner;
+import javax.swing.*;
 
 public class HumanPlayer extends Player {
 
@@ -42,25 +40,20 @@ public class HumanPlayer extends Player {
     /* the score earned by the player on this turn, */
     /* which will be zero if a six was rolled */
     /********************************************************/
-
     public int play() {
         int total = 0;
         boolean isTurnActive = true;
-        Scanner scanner = new Scanner(System.in);
 
-        while (isTurnActive == true) {
+        while (isTurnActive) {
             int roll = (int) (Math.random() * 6 + 1);
             System.out.println("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;
-                System.out.println("You are at " + total + " Enter 1 if you want to contiune rolling. Enter any other number to stop rolling.");
-                int userInput = scanner.nextInt();
-                if (userInput == 1) {
-                    System.out.println(" and choosing to continue, scoring "
-                            + total + " for the turn so far.");
+                int userInput = JOptionPane.showConfirmDialog(null, "You rolled " + roll + ". Your total is " + total + ". Do you want to continue rolling?", "Continue Rolling?", JOptionPane.YES_NO_OPTION);
+                if (userInput == JOptionPane.YES_OPTION) {
+                    System.out.println(" and choosing to continue, scoring " + total + " for the turn so far.");
                 } else {
-                    System.out.println(" and choosing not to continue, scoring "
-                            + total + " for the turn.");
+                    System.out.println(" and choosing not to continue, scoring " + total + " for the turn.");
                     isTurnActive = false;
                 }
             } else {
@@ -71,5 +64,4 @@ public class HumanPlayer extends Player {
         }
         return total;
     }
-
 }

@@ -1,3 +1,11 @@
+/********************************************************/
+/* Courtney Jackson                                     */
+/* Login ID: courtney.jackson@maine.edu                 */
+/* COS 420, Spring 2025                                 */
+/* Programming Assignment 4                             */
+/* Main class: creates instance of the game             */ 
+/********************************************************/
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,6 +55,7 @@ public class Prog6 {
             }
         }
         PlayGame(players);
+        home.start();
 
         scanner.close();
     }

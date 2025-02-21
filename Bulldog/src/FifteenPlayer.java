@@ -1,11 +1,10 @@
 /********************************************************/
-/* David Levine                                         */
-/* Login ID: david.b.levine@maine.edu                   */
-/* COS 497, Summer 2024                                 */
-/* Programming Assignment 6                             */
-/* FifteenPlayer class: extends Player class               */
-/*           A FifteenPlayer rolls until user says to stop */
-/*      See Kettering University, CS-101, Prog 6        */
+/* Courtney Jackson                                     */
+/* Login ID: courtney.jackson@maine.edu                 */
+/* COS 420, Spring 2025                                 */
+/* Programming Assignment 4                             */
+/* FifteenPlayer class: extends Player class            */
+/*        A FifteenPlayer rolls until user says to stop */
 /********************************************************/
 
 public class FifteenPlayer extends Player {

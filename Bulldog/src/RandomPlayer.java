@@ -1,11 +1,10 @@
 /********************************************************/
-/* David Levine                                         */
-/* Login ID: david.b.levine@maine.edu                   */
-/* COS 497, Summer 2024                                 */
-/* Programming Assignment 6                             */
-/* RandomPlayer class: extends Player class               */
-/*           A RandomPlayer rolls until user says to stop */
-/*      See Kettering University, CS-101, Prog 6        */
+/* Courtney Jackson                                     */
+/* Login ID: courtney.jackson@maine.edu                 */
+/* COS 420, Spring 2025                                 */
+/* Programming Assignment 4                             */
+/* RandomPlayer class: extends Player class             */
+/*         A RandomPlayer rolls until user says to stop */
 /********************************************************/
 
 public class RandomPlayer extends Player {
@@ -45,26 +44,28 @@ public class RandomPlayer extends Player {
 
         int total = 0;
         boolean isTurnActive = true;
+        String output = "";
 
         while (isTurnActive == true) {
             int roll = (int) (Math.random() * 6 + 1);
             int chance = (int) (Math.random() * 2);
-            System.out.print("   Player " + getName() + " rolled " + roll);
+            output += "   Player " + getName() + " rolled " + roll;
             if (roll != 6) {
                 total += roll;
                 if (chance == 1) {
-                    System.out.println(" and is randomly choosing to continue "
-                            + roll + " for the turn.");
+                     output += " and is randomly choosing to continue "
+                            + roll + " for the turn.";
                 } else {
-                    System.out.println(" and randomly chose not to continue, scoring " + total + " for the turn.");
+                     output +=" and randomly chose not to continue, scoring " + total + " for the turn.";
                     isTurnActive = false;
                 }
             } else {
                 total = 0;
                 isTurnActive = false;
-                System.out.println(" and scored 0 for the turn.");
+                output += " and scored 0 for the turn.";
             }
         }
+        System.out.println(output);
         return total;
     }
 

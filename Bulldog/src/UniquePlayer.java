@@ -1,11 +1,11 @@
 /********************************************************/
-/* David Levine                                         */
-/* Login ID: david.b.levine@maine.edu                   */
-/* COS 497, Summer 2024                                 */
-/* Programming Assignment 6                             */
-/* UniquePlayer class: extends Player class               */
-/*           A UniquePlayer rolls until user says to stop */
-/*      See Kettering University, CS-101, Prog 6        */
+/* Courtney Jackson                                     */
+/* Login ID: courtney.jackson@maine.edu                 */
+/* COS 420, Spring 2025                                 */
+/* Programming Assignment 4                             */
+/* UniquePlayer class: extends Player class             */
+/*         A UniquePlayer rolls until it reaches 12     */
+/*    points, then randomly decides whether to continue */
 /********************************************************/
 
 public class UniquePlayer extends Player {
