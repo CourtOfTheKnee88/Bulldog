@@ -10,42 +10,44 @@ import javax.swing.*;
 
 public class HumanPlayer extends Player {
 
+    private Dice dice = new Dice(6);
+
     /********************************************************/
-    /* Constructor: HumanPlayer */
-    /* Purpose: Create a default HumanPlayer */
-    /* Parameters: */
-    /* none */
+    /* Constructor: HumanPlayer                             */
+    /* Purpose: Create a default HumanPlayer                */
+    /* Parameters:                                          */
+    /* none                                                 */
     /********************************************************/
     public HumanPlayer() {
         this("Human");
     }
 
     /********************************************************/
-    /* Constructor: HumanPlayer */
-    /* Purpose: Create a new HumanPlayer object */
-    /* Parameters: */
-    /* String name: the name of the Player being created */
+    /* Constructor: HumanPlayer                             */
+    /* Purpose: Create a new HumanPlayer object             */
+    /* Parameters:                                          */
+    /* String name: the name of the Player being created    */
     /********************************************************/
     public HumanPlayer(String name) {
         super(name);
     }
 
     /********************************************************/
-    /* Method: play */
-    /* Purpose: Take one turn for this Player */
-    /* One turn for a HumanPlayer is a single roll */
-    /* Parameters: */
-    /* none */
-    /* Returns: */
-    /* the score earned by the player on this turn, */
-    /* which will be zero if a six was rolled */
+    /* Method: play                                         */
+    /* Purpose: Take one turn for this Player               */
+    /* One turn for a HumanPlayer is a single roll          */
+    /* Parameters:                                          */
+    /* none                                                 */
+    /* Returns:                                             */
+    /* the score earned by the player on this turn,         */
+    /* which will be zero if a six was rolled               */
     /********************************************************/
     public int play() {
         int total = 0;
         boolean isTurnActive = true;
 
         while (isTurnActive) {
-            int roll = (int) (Math.random() * 6 + 1);
+            int roll = dice.roll();
             System.out.println("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;

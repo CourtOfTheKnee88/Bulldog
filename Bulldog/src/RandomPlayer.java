@@ -9,35 +9,37 @@
 
 public class RandomPlayer extends Player {
 
+    private Dice dice = new Dice(6);
+
     /********************************************************/
-    /* Constructor: RandomPlayer */
-    /* Purpose: Create a default RandomPlayer */
-    /* Parameters: */
-    /* none */
+    /* Constructor: RandomPlayer                            */
+    /* Purpose: Create a default RandomPlayer               */
+    /* Parameters:                                          */
+    /* none                                                 */
     /********************************************************/
     public RandomPlayer() {
         this("Random");
     }
 
     /********************************************************/
-    /* Constructor: RandomPlayer */
-    /* Purpose: Create a new RandomPlayer object */
-    /* Parameters: */
-    /* String name: the name of the Player being created */
+    /* Constructor: RandomPlayer                            */
+    /* Purpose: Create a new RandomPlayer object            */
+    /* Parameters:                                          */
+    /* String name: the name of the Player being created    */
     /********************************************************/
     public RandomPlayer(String name) {
         super(name);
     }
 
     /********************************************************/
-    /* Method: play */
-    /* Purpose: Take one turn for this Player */
-    /* One turn for a RandomPlayer is a single roll */
-    /* Parameters: */
-    /* none */
-    /* Returns: */
-    /* the score earned by the player on this turn, */
-    /* which will be zero if a six was rolled */
+    /* Method: play                                         */
+    /* Purpose: Take one turn for this Player               */
+    /* One turn for a RandomPlayer is a single roll         */
+    /* Parameters:                                          */
+    /* none                                                 */
+    /* Returns:                                             */
+    /* the score earned by the player on this turn,         */
+    /* which will be zero if a six was rolled               */
     /********************************************************/
 
     public int play() {
@@ -47,7 +49,7 @@ public class RandomPlayer extends Player {
         String output = "";
 
         while (isTurnActive == true) {
-            int roll = (int) (Math.random() * 6 + 1);
+            int roll = dice.roll();
             int chance = (int) (Math.random() * 2);
             output += "   Player " + getName() + " rolled " + roll;
             if (roll != 6) {

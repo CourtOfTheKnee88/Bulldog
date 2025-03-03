@@ -9,35 +9,37 @@
 
 public class FifteenPlayer extends Player {
 
+    private Dice dice = new Dice(6);
+
     /********************************************************/
-    /* Constructor: FifteenPlayer */
-    /* Purpose: Create a default FifteenPlayer */
-    /* Parameters: */
-    /* none */
+    /* Constructor: FifteenPlayer                           */
+    /* Purpose: Create a default FifteenPlayer              */
+    /* Parameters:                                          */
+    /* none                                                 */
     /********************************************************/
     public FifteenPlayer() {
         this("Fifteen");
     }
 
     /********************************************************/
-    /* Constructor: FifteenPlayer */
-    /* Purpose: Create a new FifteenPlayer object */
-    /* Parameters: */
-    /* String name: the name of the Player being created */
+    /* Constructor: FifteenPlayer                           */
+    /* Purpose: Create a new FifteenPlayer object           */
+    /* Parameters:                                          */
+    /* String name: the name of the Player being created    */
     /********************************************************/
     public FifteenPlayer(String name) {
         super(name);
     }
 
     /********************************************************/
-    /* Method: play */
-    /* Purpose: Take one turn for this Player */
-    /* One turn for a FifteenPlayer is a single roll */
-    /* Parameters: */
-    /* none */
-    /* Returns: */
-    /* the score earned by the player on this turn, */
-    /* which will be zero if a six was rolled */
+    /* Method: play                                         */
+    /* Purpose: Take one turn for this Player               */
+    /* One turn for a FifteenPlayer is a single roll        */
+    /* Parameters:                                          */
+    /* none                                                 */
+    /* Returns:                                             */
+    /* the score earned by the player on this turn,         */
+    /* which will be zero if a six was rolled               */
     /********************************************************/
 
     public int play() {
@@ -45,7 +47,7 @@ public class FifteenPlayer extends Player {
         boolean isTurnActive = true;
 
         while (isTurnActive == true) {
-            int roll = (int) (Math.random() * 6 + 1);
+            int roll = dice.roll();
             System.out.print("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;
@@ -57,7 +59,6 @@ public class FifteenPlayer extends Player {
                             + total + " for the turn");
                     isTurnActive = false;
                 }
-                ;
             } else {
                 total = 0;
                 isTurnActive = false;

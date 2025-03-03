@@ -10,35 +10,37 @@
 
 public class UniquePlayer extends Player {
 
+    private Dice dice = new Dice(6);
+
     /********************************************************/
-    /* Constructor: UniquePlayer */
-    /* Purpose: Create a default UniquePlayer */
-    /* Parameters: */
-    /* none */
+    /* Constructor: UniquePlayer                            */
+    /* Purpose: Create a default UniquePlayer               */
+    /* Parameters:                                          */
+    /* none                                                 */
     /********************************************************/
     public UniquePlayer() {
         this("Unique");
     }
 
     /********************************************************/
-    /* Constructor: UniquePlayer */
-    /* Purpose: Create a new UniquePlayer object */
-    /* Parameters: */
-    /* String name: the name of the Player being created */
+    /* Constructor: UniquePlayer                            */
+    /* Purpose: Create a new UniquePlayer object            */
+    /* Parameters:                                          */
+    /* String name: the name of the Player being created    */
     /********************************************************/
     public UniquePlayer(String name) {
         super(name);
     }
 
     /********************************************************/
-    /* Method: play */
-    /* Purpose: Take one turn for this Player */
-    /* One turn for a UniquePlayer is a single roll */
-    /* Parameters: */
-    /* none */
-    /* Returns: */
-    /* the score earned by the player on this turn, */
-    /* which will be zero if a six was rolled */
+    /* Method: play                                         */
+    /* Purpose: Take one turn for this Player               */
+    /* One turn for a UniquePlayer is a single roll         */
+    /* Parameters:                                          */
+    /* none                                                 */
+    /* Returns:                                             */
+    /* the score earned by the player on this turn,         */
+    /* which will be zero if a six was rolled               */
     /********************************************************/
 
     public int play() {
@@ -46,7 +48,7 @@ public class UniquePlayer extends Player {
         boolean isTurnActive = true;
 
         while (isTurnActive == true) {
-            int roll = (int) (Math.random() * 6 + 1);
+            int roll = dice.roll();
             int chance = (int) (Math.random() * 2);
             System.out.print("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
@@ -64,7 +66,6 @@ public class UniquePlayer extends Player {
                         isTurnActive = false;
                     }
                 }
-                ;
             } else {
                 total = 0;
                 isTurnActive = false;

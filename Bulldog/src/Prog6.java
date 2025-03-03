@@ -18,7 +18,7 @@ public class Prog6 {
                 int score = player.play();
                 player.setScore(player.getScore() + score);
                 System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
-                if (player.getScore() >= 104) {
+                if (player.getScore() >= Player.WINNING_SCORE) {
                     System.out.println("Player " + player.getName() + " wins!");
                     gameWon = true;
                     return;

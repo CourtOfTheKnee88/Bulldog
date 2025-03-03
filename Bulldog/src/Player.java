@@ -14,6 +14,8 @@ public abstract class Player {
 	
 	private int score;		// The score earned by this Player during the game
 	
+	public static final int WINNING_SCORE = 104;
+
 	/********************************************************/
 	/* Constructor: Player                                  */
 	/* Purpose: Create a new Player object                  */
