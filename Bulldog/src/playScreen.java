@@ -22,34 +22,44 @@ public class playScreen {
      * 
      * @param players the list of players to start the game with
      */
-    public static void play(ArrayList<Player> players) {
+    public static void play(PlayerList playerList) {
         JFrame frame = new JFrame("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 700);
+        frame.setSize(1200, 700); // Adjusted size to accommodate the scoreboard
 
-        int numberOfPlayers = players.size();
+        int numberOfPlayers = playerList.getSize();
         String[] columnNames = new String[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            columnNames[i] = players.get(i).getName();
+            columnNames[i] = playerList.getPlayerName(i);
         }
 
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable playTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(playTable);
 
-        frame.add(scrollPane, BorderLayout.CENTER);
-
         // Create a panel to display the players' scores
         JPanel scorePanel = new JPanel();
         scorePanel.setLayout(new GridLayout(1, numberOfPlayers));
         JLabel[] scoreLabels = new JLabel[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            scoreLabels[i] = new JLabel(players.get(i).getName() + ": " + players.get(i).getScore());
+            scoreLabels[i] = new JLabel(playerList.getPlayerName(i) + ": " + playerList.getPlayerScore(i));
             scoreLabels[i].setHorizontalAlignment(SwingConstants.CENTER);
             scorePanel.add(scoreLabels[i]);
         }
 
+        // Integrate the ScoreboardView beside the play table
+        ScoreboardView scoreboardView = new ScoreboardView(playerList);
+        ScoreboardView.ScoreboardViewer scoreboardViewer = scoreboardView.new ScoreboardViewer();
+
+        // Add components to the frame
+        frame.setLayout(new BorderLayout());
+        frame.add(scrollPane, BorderLayout.CENTER);
         frame.add(scorePanel, BorderLayout.SOUTH);
+
+        // Add the scoreboard viewer beside the play table
+        JPanel scoreboardPanel = new JPanel(new BorderLayout());
+        scoreboardPanel.add(scoreboardViewer.frame.getContentPane(), BorderLayout.CENTER);
+        frame.add(scoreboardPanel, BorderLayout.EAST);
 
         frame.setVisible(true);
 
@@ -59,9 +69,9 @@ public class playScreen {
             while (!gameWon) {
                 Object[] rowData = new Object[numberOfPlayers];
                 for (int i = 0; i < numberOfPlayers; i++) {
-                    Player player = players.get(i);
+                    Player player = playerList.getPlayers().get(i);
                     int score = player.play();
-                    player.setScore(player.getScore() + score);
+                    playerList.setPlayerScore(i, player.getScore() + score);
                     rowData[i] = player.getName() + " scored " + score + " points for the round";
                     System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
                     if (player.getScore() >= Player.WINNING_SCORE) {
@@ -76,8 +86,9 @@ public class playScreen {
                 SwingUtilities.invokeLater(() -> {
                     tableModel.addRow(rowData);
                     for (int i = 0; i < numberOfPlayers; i++) {
-                        scoreLabels[i].setText(players.get(i).getName() + ": " + players.get(i).getScore());
+                        scoreLabels[i].setText(playerList.getPlayerName(i) + ": " + playerList.getPlayerScore(i));
                     }
+                    scoreboardViewer.updateView(); // Ensure the scoreboard viewer is updated
                 });
 
                 // Sleep for a short period to simulate game rounds

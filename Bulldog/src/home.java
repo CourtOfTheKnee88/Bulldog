@@ -12,13 +12,9 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-/**
- * The home class is responsible for creating the home panel of the Bulldog game.
- */
 public class home {
-    
+
     /**
      * Initializes and displays the home panel.
      */
@@ -40,10 +36,7 @@ public class home {
 
         // Create a table with two columns: Name and Type
         String[] columnNames = {"Name", "Type"};
-        Object[][] data = {
-            {"New Player", "Wimp"},
-        };
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable playerTable = new JTable(tableModel);
 
         // Create a JComboBox for the "Type" column
@@ -76,65 +69,48 @@ public class home {
         frame.add(bottomPanel, BorderLayout.SOUTH);
 
         // Add action listener to the "Add" button
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add a new player to the table
-                tableModel.addRow(new Object[]{"New Player", "Wimp"});
-            }
+        addButton.addActionListener(e -> {
+            // Add a new player to the table
+            tableModel.addRow(new Object[]{"New Player", "Wimp"});
         });
 
         // Add action listener to the "Remove" button
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Remove the selected row from the table
-                int row = playerTable.getSelectedRow();
-                if (row != -1) {
-                    tableModel.removeRow(row);
-                }
+        removeButton.addActionListener(e -> {
+            // Remove the selected row from the table
+            int row = playerTable.getSelectedRow();
+            if (row != -1) {
+                tableModel.removeRow(row);
             }
         });
 
         // Add action listener to the "Reset" button
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Reset the table to the default values
-                tableModel.setRowCount(0);
-                tableModel.addRow(new Object[]{"New Player", "Wimp"});
-            }
+        resetButton.addActionListener(e -> {
+            // Reset the table to the default values
+            tableModel.setRowCount(0);
+            tableModel.addRow(new Object[]{"New Player", "Wimp"});
         });
 
         // Add action listener to the "Start Game" button
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Get the number of players
-                int numPlayers = tableModel.getRowCount();
+        startButton.addActionListener(e -> {
+            // Get the number of players
+            int numPlayers = tableModel.getRowCount();
 
-                // Create an arrayList of players based on the number of players the user entered
-                ArrayList<Player> players = new ArrayList<Player>();
-
-                for (int i = 0; i < numPlayers; i++) {
-                    String name = (String) tableModel.getValueAt(i, 0);
-                    String type = (String) tableModel.getValueAt(i, 1);
-                    if (type.equals("Human")) {
-                        players.add(new HumanPlayer(name));
-                    } else if (type.equals("Random")) {
-                        players.add(new RandomPlayer(name));
-                    } else if (type.equals("Fifteen")) {
-                        players.add(new FifteenPlayer(name));
-                    } else if (type.equals("Unique")) {
-                        players.add(new UniquePlayer(name));
-                    } else if (type.equals("Wimp")) {
-                        players.add(new WimpPlayer(name));
-                    }
+            // Create a PlayerList based on the table data
+            PlayerList playerList = new PlayerList();
+            for (int i = 0; i < numPlayers; i++) {
+                String name = (String) tableModel.getValueAt(i, 0);
+                String type = (String) tableModel.getValueAt(i, 1);
+                switch (type) {
+                    case "Human" -> playerList.addPlayer(new HumanPlayer(name));
+                    case "Random" -> playerList.addPlayer(new RandomPlayer(name));
+                    case "Fifteen" -> playerList.addPlayer(new FifteenPlayer(name));
+                    case "Unique" -> playerList.addPlayer(new UniquePlayer(name));
+                    case "Wimp" -> playerList.addPlayer(new WimpPlayer(name));
                 }
-                frame.dispose();
-                playScreen.play(players);
-                // gameOver.end("HA HA LOSER", 104);
             }
+
+            frame.dispose();
+            playScreen.play(playerList); // Pass PlayerList to playScreen
         });
 
         frame.setVisible(true);
