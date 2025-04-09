@@ -2,7 +2,7 @@
 /* Courtney Jackson                                     */
 /* Login ID: courtney.jackson@maine.edu                 */
 /* COS 420, Spring 2025                                 */
-/* Programming Assignment 6                             */
+/* Programming Assignment 7                             */
 /* RandomDice class: Abstract superclass for dice       */
 /*         Keeps track of the number of sides           */
 /*         Defines an abstract roll() method            */

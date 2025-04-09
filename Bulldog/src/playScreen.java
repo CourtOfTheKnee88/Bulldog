@@ -74,7 +74,7 @@ public class playScreen {
                     playerList.setPlayerScore(i, player.getScore() + score);
                     rowData[i] = player.getName() + " scored " + score + " points for the round";
                     System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
-                    if (player.getScore() >= Player.WINNING_SCORE) {
+                    if (player.getScore() >= Referee.WINNING_SCORE) { // Use Referee's WINNING_SCORE
                         System.out.println("Player " + player.getName() + " wins!");
                         gameWon = true;
                         SwingUtilities.invokeLater(() -> gameOver.end(player.getName(), player.getScore()));

@@ -1,51 +1,61 @@
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-/********************************************************/
-/* Courtney Jackson                                     */
-/* Login ID: courtney.jackson@maine.edu                 */
-/* COS 420, Spring 2025                                 */
-/* FakeRandomTest class: Test FakeRandom and SevenPlayer*/
-/********************************************************/
+import org.junit.Test;
 
 public class FakeRandomTest {
 
-    @Test
-    public void testFakeRandomRolls() {
-        // Create a FakeRandom with predefined rolls
-        int[] predefinedRolls = {1, 2, 3, 4, 5};
-        FakeRandom fakeRandom = new FakeRandom(6, predefinedRolls);
+	// Test for a roll of all 1's
+	@Test
+	public void testlimit1s() {
+		FakeRandom fakeDice = new FakeRandom(6, 207129, 7); // Predefined rolls of 1
+		SevenPlayer player = new SevenPlayer("TestPlayer", fakeDice);
+		int score = player.play();
+		assertEquals(7, score);
+	}
 
-        // Verify the sequence of rolls
-        assertEquals(1, fakeRandom.roll());
-        assertEquals(2, fakeRandom.roll());
-        assertEquals(3, fakeRandom.roll());
-        assertEquals(4, fakeRandom.roll());
-        assertEquals(5, fakeRandom.roll());
-        assertEquals(1, fakeRandom.roll()); // Loop back to the start
-    }
+	// Test for a roll of 6
+	@Test
+	public void test6Roll() {
+		FakeRandom fakeDice = new FakeRandom(6, 5, 1); // Predefined rolls including 6
+		SevenPlayer player = new SevenPlayer("TestPlayer", fakeDice);
+		int score = player.play();
+		assertEquals(0, score);
+	}
 
-    @Test
-    public void testSevenPlayerWithFakeRandom() {
-        // Create a FakeRandom with predefined rolls
-        int[] predefinedRolls = {1, 2, 3, 1, 6}; // Total reaches 7, then rolls a 6
-        FakeRandom fakeRandom = new FakeRandom(6, predefinedRolls);
+	// Test for a roll of middle 6
+	@Test
+	public void testMid6Roll() {
+		FakeRandom fakeDice = new FakeRandom(6, 145, 3); // Predefined rolls including 6
+		SevenPlayer player = new SevenPlayer("TestPlayer", fakeDice);
+		int score = player.play();
+		assertEquals(0, score);
+	}
 
-        // Inject FakeRandom into SevenPlayer
-        SevenPlayer player = new SevenPlayer("TestPlayer") {
-            @Override
-            protected Dice getDice() {
-                return fakeRandom;
-            }
-        };
+	// Test for a roll of 8
+	@Test
+	public void test8Roll() {
+		FakeRandom fakeDice = new FakeRandom(6, 48, 3); // Predefined rolls summing to 8
+		SevenPlayer player = new SevenPlayer("TestPlayer", fakeDice);
+		int score = player.play();
+		assertEquals(8, score);
+	}
 
-        // Play a turn and verify the score
-        int score = player.play();
-        assertEquals(7, score); // Player stops after reaching 7
-    }
-}
-package Bulldog.test;
+	// Test for a roll of 7
+	@Test
+	public void test7Roll() {
+		FakeRandom fakeDice = new FakeRandom(6, 42, 10); // Predefined rolls summing to 7
+		SevenPlayer player = new SevenPlayer("TestPlayer", fakeDice);
+		int score = player.play();
+		assertEquals(7, score);
+	}
 
-public class FakeRandomTest {
-    
+	// Test for a roll of 11
+	@Test
+	public void testMaxroll() {
+		FakeRandom fakeDice = new FakeRandom(6, 139, 3); // Predefined rolls summing to 11
+		SevenPlayer player = new SevenPlayer("TestPlayer", fakeDice);
+		int score = player.play();
+		assertEquals(11, score);
+	}
+
 }

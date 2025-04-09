@@ -7,9 +7,11 @@
 /*        A SevenPlayer rolls until the score reaches 7 */
 /********************************************************/
 
+import java.util.Random;
+
 public class SevenPlayer extends Player {
 
-    private Dice dice;
+    private FakeRandom dice;
 
     /********************************************************/
     /* Constructor: SevenPlayer                             */
@@ -18,7 +20,19 @@ public class SevenPlayer extends Player {
     /* none                                                 */
     /********************************************************/
     public SevenPlayer() {
-        this("Seven");
+        this("Seven", new FakeRandom(6, 42L, 10)); // Use FakeRandom with default seed and rolls
+    }
+
+    /********************************************************/
+    /* Constructor: SevenPlayer                             */
+    /* Purpose: Create a new SevenPlayer object             */
+    /* Parameters:                                          */
+    /* String name: the name of the Player being created    */
+    /* FakeRandom dice: the FakeRandom instance to use      */
+    /********************************************************/
+    public SevenPlayer(String name, FakeRandom dice) {
+        super(name);
+        this.dice = dice; // Use FakeRandom instance
     }
 
     /********************************************************/
@@ -28,8 +42,7 @@ public class SevenPlayer extends Player {
     /* String name: the name of the Player being created    */
     /********************************************************/
     public SevenPlayer(String name) {
-        super(name);
-        this.dice = Dice.getInstance(6); // Use Singleton Dice instance
+        this(name, new FakeRandom(6, 42L, 10)); // Default FakeRandom instance
     }
 
     /********************************************************/
@@ -47,7 +60,7 @@ public class SevenPlayer extends Player {
         boolean isTurnActive = true;
 
         while (isTurnActive) {
-            int roll = dice.roll(); // Use Singleton Dice instance
+            int roll = dice.roll(); // Use FakeRandom instance
             System.out.print("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;

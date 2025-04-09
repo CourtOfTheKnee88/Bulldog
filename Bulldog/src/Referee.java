@@ -1,5 +1,6 @@
 public class Referee {
     private static Referee instance;
+    public static final int WINNING_SCORE = 104; // Define the winning score
 
     private Referee() {
         // Private constructor to prevent instantiation
@@ -16,8 +17,8 @@ public class Referee {
         System.out.println("Player " + playerName + " wins!");
     }
 
-    public boolean hasPlayerWon(int score, int winningScore) {
-        return score >= winningScore;
+    public boolean hasPlayerWon(int score) {
+        return score >= WINNING_SCORE; // Use the constant WINNING_SCORE
     }
 
     public void playGame(PlayerList playerList) {
@@ -28,7 +29,7 @@ public class Referee {
                 int score = player.play();
                 playerList.setPlayerScore(i, player.getScore() + score);
                 System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
-                if (hasPlayerWon(player.getScore(), Player.WINNING_SCORE)) {
+                if (hasPlayerWon(player.getScore())) {
                     announceWinner(player.getName());
                     gameWon = true;
                     return;
