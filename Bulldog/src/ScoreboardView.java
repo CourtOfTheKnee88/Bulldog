@@ -1,14 +1,37 @@
+/********************************************************/
+/* Courtney Jackson                                     */
+/* Login ID: courtney.jackson@maine.edu                 */
+/* COS 420, Spring 2025                                 */
+/* Programming Assignment 4                             */
+/* Partly Written by David Levine                       */
+/* ScoreboardView class: provides a way to display      */
+/*                      the scores of players in both   */
+/*                      console-based and GUI-based     */
+/*                      formats.                        */
+/********************************************************/
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The ScoreboardView class provides a way to display the scores of players
+ * in both a console-based and GUI-based format.
+ */
 public class ScoreboardView {
     private PlayerList playerList;
 
+    /**
+     * Constructs a ScoreboardView with the given PlayerList.
+     * 
+     * @param playerList the PlayerList to display
+     */
     public ScoreboardView(PlayerList playerList) {
         this.playerList = playerList;
     }
 
+    /**
+     * Displays the scoreboard in the console.
+     */
     public void displayScoreboard() {
         System.out.println("Scoreboard:");
         for (int i = 0; i < playerList.getPlayers().size(); i++) {
@@ -17,11 +40,16 @@ public class ScoreboardView {
         }
     }
 
-    // Inner class for a GUI-based scoreboard viewer
+    /**
+     * The ScoreboardViewer class provides a GUI-based view of the scoreboard.
+     */
     public class ScoreboardViewer {
         JFrame frame;
         private JTextArea textArea;
 
+        /**
+         * Constructs a ScoreboardViewer and initializes the GUI components.
+         */
         public ScoreboardViewer() {
             // Initialize the GUI components
             frame = new JFrame("Scoreboard Viewer");
@@ -36,7 +64,9 @@ public class ScoreboardView {
             updateView();
         }
 
-        // Update the view with the current state of the PlayerList
+        /**
+         * Updates the GUI view with the current state of the PlayerList.
+         */
         public void updateView() {
             StringBuilder scoreboard = new StringBuilder("Scoreboard:\n");
             for (int i = 0; i < playerList.getPlayers().size(); i++) {
