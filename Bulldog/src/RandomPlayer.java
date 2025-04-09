@@ -9,7 +9,7 @@
 
 public class RandomPlayer extends Player {
 
-    private Dice dice = new Dice(6);
+    private Dice dice;
 
     /********************************************************/
     /* Constructor: RandomPlayer                            */
@@ -29,6 +29,7 @@ public class RandomPlayer extends Player {
     /********************************************************/
     public RandomPlayer(String name) {
         super(name);
+        this.dice = Dice.getInstance(6); // Use Singleton Dice instance
     }
 
     /********************************************************/
@@ -49,8 +50,8 @@ public class RandomPlayer extends Player {
         String output = "";
 
         while (isTurnActive == true) {
-            int roll = dice.roll();
-            int chance = (int) (Math.random() * 2);
+            int roll = dice.roll(); // Use Singleton Dice instance
+            int chance = Dice.getInstance(2).roll(); // Randomly choose to continue or not
             output += "   Player " + getName() + " rolled " + roll;
             if (roll != 6) {
                 total += roll;

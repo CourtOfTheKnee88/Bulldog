@@ -9,7 +9,7 @@
 
 public class FifteenPlayer extends Player {
 
-    private Dice dice = new Dice(6);
+    private Dice dice;
 
     /********************************************************/
     /* Constructor: FifteenPlayer                           */
@@ -29,6 +29,7 @@ public class FifteenPlayer extends Player {
     /********************************************************/
     public FifteenPlayer(String name) {
         super(name);
+        this.dice = Dice.getInstance(6); // Use Singleton Dice instance
     }
 
     /********************************************************/
@@ -47,7 +48,7 @@ public class FifteenPlayer extends Player {
         boolean isTurnActive = true;
 
         while (isTurnActive == true) {
-            int roll = dice.roll();
+            int roll = dice.roll(); // Use Singleton Dice instance
             System.out.print("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;

@@ -10,7 +10,7 @@
 
 public class UniquePlayer extends Player {
 
-    private Dice dice = new Dice(6);
+    private Dice dice;
 
     /********************************************************/
     /* Constructor: UniquePlayer                            */
@@ -30,6 +30,7 @@ public class UniquePlayer extends Player {
     /********************************************************/
     public UniquePlayer(String name) {
         super(name);
+        this.dice = Dice.getInstance(6); // Use Singleton Dice instance
     }
 
     /********************************************************/
@@ -42,14 +43,13 @@ public class UniquePlayer extends Player {
     /* the score earned by the player on this turn,         */
     /* which will be zero if a six was rolled               */
     /********************************************************/
-
     public int play() {
         int total = 0;
         boolean isTurnActive = true;
 
         while (isTurnActive == true) {
-            int roll = dice.roll();
-            int chance = (int) (Math.random() * 2);
+            int roll = dice.roll(); // Use Singleton Dice instance
+            int chance = Dice.getInstance(2).roll(); // Randomly choose to continue or not
             System.out.print("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;

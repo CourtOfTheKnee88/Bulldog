@@ -7,30 +7,16 @@
 /********************************************************/
 
 import javax.swing.*;
-import java.util.Scanner;
 
 public class Prog6 {
-
-    public static void PlayGame(PlayerList playerList) {
-        boolean gameWon = false;
-        while (!gameWon) {
-            for (int i = 0; i < playerList.getSize(); i++) {
-                Player player = playerList.getPlayers().get(i);
-                int score = player.play();
-                playerList.setPlayerScore(i, player.getScore() + score);
-                System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
-                if (player.getScore() >= Player.WINNING_SCORE) {
-                    System.out.println("Player " + player.getName() + " wins!");
-                    gameWon = true;
-                    return;
-                }
-            }
-        }
-    }
 
     public static void main(String[] args) throws Exception {
         SwingUtilities.invokeLater(() -> {
             home.start(); // Use the home GUI to start the game
         });
+
+        // Example usage of Referee's playGame method
+        PlayerList playerList = new PlayerList(); // Assume this is initialized properly
+        Referee.getInstance().playGame(playerList);
     }
 }

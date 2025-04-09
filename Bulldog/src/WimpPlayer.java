@@ -10,7 +10,7 @@
 
 public class WimpPlayer extends Player {
 
-	private Dice dice = new Dice(6);
+	private Dice dice;
 
 	/********************************************************/
 	/* Constructor: WimpPlayer                              */
@@ -30,6 +30,7 @@ public class WimpPlayer extends Player {
 	/********************************************************/
 	public WimpPlayer (String name) {
 		super(name);
+		this.dice = Dice.getInstance(6); // Use Singleton Dice instance
 	}
 
 	/********************************************************/
@@ -43,7 +44,7 @@ public class WimpPlayer extends Player {
 	/*       which will be zero if a six was rolled         */
 	/********************************************************/
 	public int play() {
-		int roll = dice.roll();
+		int roll = dice.roll(); // Use Singleton Dice instance
 		System.out.print("   Player " + getName() + " rolled " + roll);
 		if (roll != 6) {
 			System.out.println(" and chose not to continue, scoring " 

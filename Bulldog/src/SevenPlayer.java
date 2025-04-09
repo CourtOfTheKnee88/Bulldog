@@ -3,32 +3,31 @@
 /* Login ID: courtney.jackson@maine.edu                 */
 /* COS 420, Spring 2025                                 */
 /* Programming Assignment 4                             */
-/* HumanPlayer class: extends Player class              */
-/*          A HumanPlayer rolls until user says to stop */
+/* SevenPlayer class: extends Player class              */
+/*        A SevenPlayer rolls until the score reaches 7 */
 /********************************************************/
-import javax.swing.*;
 
-public class HumanPlayer extends Player {
+public class SevenPlayer extends Player {
 
     private Dice dice;
 
     /********************************************************/
-    /* Constructor: HumanPlayer                             */
-    /* Purpose: Create a default HumanPlayer                */
+    /* Constructor: SevenPlayer                             */
+    /* Purpose: Create a default SevenPlayer                */
     /* Parameters:                                          */
     /* none                                                 */
     /********************************************************/
-    public HumanPlayer() {
-        this("Human");
+    public SevenPlayer() {
+        this("Seven");
     }
 
     /********************************************************/
-    /* Constructor: HumanPlayer                             */
-    /* Purpose: Create a new HumanPlayer object             */
+    /* Constructor: SevenPlayer                             */
+    /* Purpose: Create a new SevenPlayer object             */
     /* Parameters:                                          */
     /* String name: the name of the Player being created    */
     /********************************************************/
-    public HumanPlayer(String name) {
+    public SevenPlayer(String name) {
         super(name);
         this.dice = Dice.getInstance(6); // Use Singleton Dice instance
     }
@@ -36,7 +35,7 @@ public class HumanPlayer extends Player {
     /********************************************************/
     /* Method: play                                         */
     /* Purpose: Take one turn for this Player               */
-    /* One turn for a HumanPlayer is a single roll          */
+    /* One turn for a SevenPlayer is a single roll          */
     /* Parameters:                                          */
     /* none                                                 */
     /* Returns:                                             */
@@ -49,14 +48,15 @@ public class HumanPlayer extends Player {
 
         while (isTurnActive) {
             int roll = dice.roll(); // Use Singleton Dice instance
-            System.out.println("   Player " + getName() + " rolled " + roll);
+            System.out.print("   Player " + getName() + " rolled " + roll);
             if (roll != 6) {
                 total += roll;
-                int userInput = JOptionPane.showConfirmDialog(null, "You rolled " + roll + ". Your total is " + total + ". Do you want to continue rolling?", "Continue Rolling?", JOptionPane.YES_NO_OPTION);
-                if (userInput == JOptionPane.YES_OPTION) {
-                    System.out.println(" and choosing to continue, scoring " + total + " for the turn so far.");
+                if (total < 7) {
+                    System.out.println(" player score is not above 7 so player is continuing. Player is at "
+                            + total + " for the turn so far.");
                 } else {
-                    System.out.println(" and choosing not to continue, scoring " + total + " for the turn.");
+                    System.out.println(" player score is above 7 so player is not continuing. Player is at "
+                            + total + " for the turn.");
                     isTurnActive = false;
                 }
             } else {
