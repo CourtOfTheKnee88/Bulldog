@@ -33,43 +33,23 @@ public class RandomPlayer extends Player {
     }
 
     /********************************************************/
-    /* Method: play                                         */
-    /* Purpose: Take one turn for this Player               */
-    /* One turn for a RandomPlayer is a single roll         */
+    /* Method: continueTurn                                 */
+    /* Purpose: Decide whether to continue the turn         */
     /* Parameters:                                          */
-    /* none                                                 */
+    /* int total: the current score for the turn            */
     /* Returns:                                             */
-    /* the score earned by the player on this turn,         */
-    /* which will be zero if a six was rolled               */
+    /* true if the player decides to continue, false otherwise */
     /********************************************************/
-
-    public int play() {
-
-        int total = 0;
-        boolean isTurnActive = true;
-        String output = "";
-
-        while (isTurnActive == true) {
-            int roll = dice.roll(); // Use Singleton Dice instance
-            int chance = Dice.getInstance(2).roll(); // Randomly choose to continue or not
-            output += "   Player " + getName() + " rolled " + roll;
-            if (roll != 6) {
-                total += roll;
-                if (chance == 1) {
-                     output += " and is randomly choosing to continue "
-                            + roll + " for the turn.";
-                } else {
-                     output +=" and randomly chose not to continue, scoring " + total + " for the turn.";
-                    isTurnActive = false;
-                }
-            } else {
-                total = 0;
-                isTurnActive = false;
-                output += " and scored 0 for the turn.";
-            }
+    @Override
+    protected boolean continueTurn(int total) {
+        int chance = Dice.getInstance(2).roll(); // Randomly choose to continue or not
+        if (chance == 1) {
+            System.out.println(" and is randomly choosing to continue. Player is at " + total + " for the turn so far.");
+            return true;
+        } else {
+            System.out.println(" and randomly chose not to continue, scoring " + total + " for the turn.");
+            return false;
         }
-        System.out.println(output);
-        return total;
     }
 
 }

@@ -40,7 +40,7 @@ public class home {
         JTable playerTable = new JTable(tableModel);
 
         // Create a JComboBox for the "Type" column
-        String[] playerTypes = {"Human", "Random", "Fifteen", "Unique", "Wimp"};
+        String[] playerTypes = {"Human", "Random", "Fifteen", "Unique", "Wimp", "Seven"};
         JComboBox<String> comboBox = new JComboBox<>(playerTypes);
         TableColumn typeColumn = playerTable.getColumnModel().getColumn(1);
         typeColumn.setCellEditor(new DefaultCellEditor(comboBox));
@@ -106,6 +106,7 @@ public class home {
                     case "Fifteen" -> playerList.addPlayer(new FifteenPlayer(name));
                     case "Unique" -> playerList.addPlayer(new UniquePlayer(name));
                     case "Wimp" -> playerList.addPlayer(new WimpPlayer(name));
+                    case "Seven" -> playerList.addPlayer(new SevenPlayer(name));
                 }
             }
 

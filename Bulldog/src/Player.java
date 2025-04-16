@@ -13,8 +13,7 @@ public abstract class Player {
 	private String name;   	// The name of the Player
 	
 	private int score;		// The score earned by this Player during the game
-	
-	public static final int WINNING_SCORE = 104;
+
 
 	/********************************************************/
 	/* Constructor: Player                                  */
@@ -64,15 +63,42 @@ public abstract class Player {
 	}
 	
 	/********************************************************/
-	/* Method:  play                                        */
-	/* Purpose: abstract method that encapsulates one turn  */
-	/*          for this Player                             */
+	/* Method: play                                         */
+	/* Purpose: Encapsulate one turn for this Player        */
 	/* Parameters:                                          */
 	/*   none                                               */
 	/* Returns:                                             */
 	/*   the score earned by the player on this turn,       */
 	/*       which will be zero if a six was rolled         */
 	/********************************************************/
-	public abstract int play();
+	public int play() {
+		int total = 0;
+		boolean isTurnActive = true;
+
+		while (isTurnActive) {
+			int roll = Dice.getInstance(6).roll(); // Use Singleton Dice instance
+			System.out.print("   Player " + getName() + " rolled " + roll);
+			if (roll != 6) {
+				total += roll;
+				GameStatus status = new GameStatus(roll, total, this.getScore());
+				isTurnActive = continueTurn(status.getTurnTotal());
+			} else {
+				total = 0;
+				isTurnActive = false;
+				System.out.println(" and scored 0 for the turn.");
+			}
+		}
+		return total;
+	}
+
+	/********************************************************/
+	/* Method: continueTurn                                 */
+	/* Purpose: Determine whether the player continues      */
+	/* Parameters:                                          */
+	/*   int total - the current total score for the turn   */
+	/* Returns:                                             */
+	/*   boolean - true to continue, false to stop          */
+	/********************************************************/
+	protected abstract boolean continueTurn(int total);
 	
 }

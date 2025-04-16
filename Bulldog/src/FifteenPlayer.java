@@ -9,7 +9,6 @@
 
 public class FifteenPlayer extends Player {
 
-    private Dice dice;
 
     /********************************************************/
     /* Constructor: FifteenPlayer                           */
@@ -29,44 +28,18 @@ public class FifteenPlayer extends Player {
     /********************************************************/
     public FifteenPlayer(String name) {
         super(name);
-        this.dice = Dice.getInstance(6); // Use Singleton Dice instance
     }
 
-    /********************************************************/
-    /* Method: play                                         */
-    /* Purpose: Take one turn for this Player               */
-    /* One turn for a FifteenPlayer is a single roll        */
-    /* Parameters:                                          */
-    /* none                                                 */
-    /* Returns:                                             */
-    /* the score earned by the player on this turn,         */
-    /* which will be zero if a six was rolled               */
-    /********************************************************/
 
-    public int play() {
-        int total = 0;
-        boolean isTurnActive = true;
-
-        while (isTurnActive == true) {
-            int roll = dice.roll(); // Use Singleton Dice instance
-            System.out.print("   Player " + getName() + " rolled " + roll);
-            if (roll != 6) {
-                total += roll;
-                if (total < 15) {
-                    System.out.println(" player score is not above 15 so player is contiuning player is at "
-                            + total + " for the turn so far.");
-                } else {
-                    System.out.println(" player score is above 15 so player is not contiuning player is at "
-                            + total + " for the turn");
-                    isTurnActive = false;
-                }
-            } else {
-                total = 0;
-                isTurnActive = false;
-                System.out.println(" and scored 0 for the turn.");
-            }
+    @Override
+    protected boolean continueTurn(int total) {
+        if (total < 15) {
+            System.out.println(" player score is not above 15 so player is continuing. Player is at " + total + " for the turn so far.");
+            return true;
+        } else {
+            System.out.println(" player score is above 15 so player is not continuing. Player is at " + total + " for the turn.");
+            return false;
         }
-        return total;
     }
 
 }

@@ -10,8 +10,6 @@ import javax.swing.*;
 
 public class HumanPlayer extends Player {
 
-    private Dice dice;
-
     /********************************************************/
     /* Constructor: HumanPlayer                             */
     /* Purpose: Create a default HumanPlayer                */
@@ -30,41 +28,18 @@ public class HumanPlayer extends Player {
     /********************************************************/
     public HumanPlayer(String name) {
         super(name);
-        this.dice = Dice.getInstance(6); // Use Singleton Dice instance
     }
 
-    /********************************************************/
-    /* Method: play                                         */
-    /* Purpose: Take one turn for this Player               */
-    /* One turn for a HumanPlayer is a single roll          */
-    /* Parameters:                                          */
-    /* none                                                 */
-    /* Returns:                                             */
-    /* the score earned by the player on this turn,         */
-    /* which will be zero if a six was rolled               */
-    /********************************************************/
-    public int play() {
-        int total = 0;
-        boolean isTurnActive = true;
 
-        while (isTurnActive) {
-            int roll = dice.roll(); // Use Singleton Dice instance
-            System.out.println("   Player " + getName() + " rolled " + roll);
-            if (roll != 6) {
-                total += roll;
-                int userInput = JOptionPane.showConfirmDialog(null, "You rolled " + roll + ". Your total is " + total + ". Do you want to continue rolling?", "Continue Rolling?", JOptionPane.YES_NO_OPTION);
-                if (userInput == JOptionPane.YES_OPTION) {
-                    System.out.println(" and choosing to continue, scoring " + total + " for the turn so far.");
-                } else {
-                    System.out.println(" and choosing not to continue, scoring " + total + " for the turn.");
-                    isTurnActive = false;
-                }
-            } else {
-                total = 0;
-                isTurnActive = false;
-                System.out.println(" and scored 0 for the turn.");
-            }
+    @Override
+    protected boolean continueTurn(int total) {
+        int userInput = JOptionPane.showConfirmDialog(null, "You rolled. Your total is " + total + ". Do you want to continue rolling?", "Continue Rolling?", JOptionPane.YES_NO_OPTION);
+        if (userInput == JOptionPane.YES_OPTION) {
+            System.out.println(" and choosing to continue, scoring " + total + " for the turn so far.");
+            return true;
+        } else {
+            System.out.println(" and choosing not to continue, scoring " + total + " for the turn.");
+            return false;
         }
-        return total;
     }
 }
