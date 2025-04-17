@@ -32,6 +32,13 @@ public class FifteenPlayer extends Player {
 
 
     @Override
+    /**
+     * Determines whether the FifteenPlayer continues their turn.
+     * The player continues if their score is below 15. Otherwise, they stop.
+     *
+     * @param total the current total score for the turn
+     * @return true if the player decides to continue, false otherwise
+     */
     protected boolean continueTurn(int total) {
         if (total < 15) {
             System.out.println(" player score is not above 15 so player is continuing. Player is at " + total + " for the turn so far.");

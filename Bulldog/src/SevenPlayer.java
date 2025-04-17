@@ -43,8 +43,14 @@ public class SevenPlayer extends Player {
         this.dice = dice; // Use FakeRandom instance
     }
 
-
     @Override
+    /**
+     * Determines whether the SevenPlayer continues their turn.
+     * The player continues if their score is below 7. Otherwise, they stop.
+     *
+     * @param total the current total score for the turn
+     * @return true if the player decides to continue, false otherwise
+     */
     protected boolean continueTurn(int total) {
         if (total < 7) {
             System.out.println(" player score is not above 7 so player is continuing. Player is at " + total + " for the turn so far.");

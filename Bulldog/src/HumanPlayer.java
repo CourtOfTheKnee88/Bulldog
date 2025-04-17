@@ -30,10 +30,17 @@ public class HumanPlayer extends Player {
         super(name);
     }
 
-
     @Override
+    /**
+     * Determines whether the HumanPlayer continues their turn.
+     * The decision is made based on user input via a dialog box.
+     *
+     * @param total the current total score for the turn
+     * @return true if the user decides to continue, false otherwise
+     */
     protected boolean continueTurn(int total) {
-        int userInput = JOptionPane.showConfirmDialog(null, "You rolled. Your total is " + total + ". Do you want to continue rolling?", "Continue Rolling?", JOptionPane.YES_NO_OPTION);
+        int userInput = JOptionPane.showConfirmDialog(null, "You rolled. Your total is " + total + ". Do you want to continue rolling?", 
+        "Continue Rolling?", JOptionPane.YES_NO_OPTION);
         if (userInput == JOptionPane.YES_OPTION) {
             System.out.println(" and choosing to continue, scoring " + total + " for the turn so far.");
             return true;

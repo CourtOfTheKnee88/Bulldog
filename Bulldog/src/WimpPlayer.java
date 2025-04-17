@@ -32,6 +32,13 @@ public class WimpPlayer extends Player {
 
 
 	@Override
+	/**
+	 * Determines whether the WimpPlayer continues their turn.
+	 * A WimpPlayer always stops after the first roll.
+	 *
+	 * @param total the current total score for the turn
+	 * @return false, as the WimpPlayer never continues
+	 */
 	protected boolean continueTurn(int total) {
 		System.out.println(" and chose not to continue, scoring " + total + " for the turn.");
 		return false;

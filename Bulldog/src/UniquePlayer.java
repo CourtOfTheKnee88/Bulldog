@@ -33,6 +33,14 @@ public class UniquePlayer extends Player {
 
 
     @Override
+    /**
+     * Determines whether the UniquePlayer continues their turn.
+     * The player continues if their score is 12 or below. If above 12, 
+     * the decision is made randomly.
+     *
+     * @param total the current total score for the turn
+     * @return true if the player decides to continue, false otherwise
+     */
     protected boolean continueTurn(int total) {
         if (total <= 12) {
             System.out.println(" player score is not above 12 so player is continuing. Player is at " + total + " for the turn so far.");
