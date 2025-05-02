@@ -4,20 +4,19 @@
 /* COS 420, Spring 2025                                 */
 /* Programming Assignment 4                             */
 /* Partly Written by David Levine                       */
-/* ScoreboardView class: provides a way to display      */
-/*                      the scores of players in both   */
-/*                      console-based and GUI-based     */
-/*                      formats.                        */
+/* ScoreboardView class: updates the scoreboard when    */
+/* notified of game state changes                       */
 /********************************************************/
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observer;
 
 /**
  * The ScoreboardView class provides a way to display the scores of players
  * in both a console-based and GUI-based format.
  */
-public class ScoreboardView {
-    private PlayerList playerList;
+public class ScoreboardView implements Observer {
+    private final PlayerList playerList;
 
     /**
      * Constructs a ScoreboardView with the given PlayerList.
@@ -42,7 +41,7 @@ public class ScoreboardView {
     /**
      * The ScoreboardViewer class provides a GUI-based view of the scoreboard.
      */
-    public class ScoreboardViewer {
+    public class ScoreboardViewer extends JPanel {
         JFrame frame;
         private JTextArea textArea;
 
@@ -76,41 +75,13 @@ public class ScoreboardView {
         }
     }
 
-// The follow was meant for testing purposes to ensure the code was working as intended
-    // public static void main(String[] args) {
-    //     // Create the PlayerList (Model)
-    //     PlayerList playerList = new PlayerList();
-
-    //     // Populate the game roster with Player objects
-    //     playerList.addPlayer(new WimpPlayer("Alice"));
-    //     playerList.addPlayer(new WimpPlayer("Bob"));
-    //     playerList.addPlayer(new WimpPlayer("Charlie"));
-
-    //     // Set initial scores
-    //     playerList.setPlayerScore(0, 10);
-    //     playerList.setPlayerScore(1, 20);
-    //     playerList.setPlayerScore(2, 15);
-
-    //     // Create the ScoreboardView (Viewer)
-    //     ScoreboardView scoreboardView = new ScoreboardView(playerList);
-
-    //     // Display the initial scoreboard in the console
-    //     scoreboardView.displayScoreboard();
-
-    //     // Create and display the GUI-based scoreboard viewer
-    //     ScoreboardViewer guiViewer = scoreboardView.new ScoreboardViewer();
-
-    //     // Pause with a JOptionPane dialog
-    //     JOptionPane.showMessageDialog(null, "Click OK to update Bob's score.");
-
-    //     // Update Bob's score (index 1)
-    //     playerList.setPlayerScore(1, 50);
-
-    //     // Display the updated scoreboard in the console
-    //     System.out.println("\nUpdated Scoreboard:");
-    //     scoreboardView.displayScoreboard();
-
-    //     // Update the GUI-based scoreboard viewer
-    //     guiViewer.updateView();
-    // }
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        if (arg instanceof GameStatus) {
+            GameStatus status = (GameStatus) arg;
+            // Update the scoreboard based on the new game status
+            System.out.println("Scoreboard updated: Player rolled " + status.getRollValue() + ", Turn Total: " + status.getTurnTotal() + ", Current Score: " + status.getCurrentScore());
+            // Add logic to refresh the UI if necessary
+        }
+    }
 }

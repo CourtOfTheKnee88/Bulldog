@@ -16,7 +16,25 @@ import java.util.List;
 /**
  * The playScreen class is responsible for creating the play screen and its inner workings.
  */
-public class playScreen {
+public class playScreen implements Subject {
+    private final List<Observer> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(GameStatus status) {
+        for (Observer observer : observers) {
+            observer.update(status);
+        }
+    }
 
     /**
      * Starts the play screen with the given players.
@@ -69,6 +87,8 @@ public class playScreen {
 
         frame.setVisible(true);
 
+        playScreen subject = new playScreen();
+
         // Start the game loop in a separate thread
         new Thread(() -> {
             boolean gameWon = false;
@@ -80,6 +100,10 @@ public class playScreen {
                     Player player = playerList.getPlayers().get(i);
                     int score = player.play();
                     playerList.setPlayerScore(i, player.getScore() + score);
+
+                    GameStatus status = new GameStatus(score, player.getScore(), playerList.getPlayerScore(i));
+                    subject.notifyObservers(status); // Notify observers of the updated game state
+
                     rowData[i] = player.getName() + " scored " + score + " points for the round";
                     System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
                     if (player.getScore() >= Referee.getWinningScore()) { // Use dynamic winning score
