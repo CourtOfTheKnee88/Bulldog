@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The playScreen class is responsible for creating the play screen and its inner workings.
@@ -20,9 +21,14 @@ public class playScreen {
     /**
      * Starts the play screen with the given players.
      * 
-     * @param players the list of players to start the game with
+     * @param playerList the list of players to start the game with
      */
     public static void play(PlayerList playerList) {
+        if (playerList.getSize() == 0) {
+            JOptionPane.showMessageDialog(null, "No players available. Please add players to start the game.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         JFrame frame = new JFrame("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 700); // Adjusted size to accommodate the scoreboard
@@ -66,7 +72,9 @@ public class playScreen {
         // Start the game loop in a separate thread
         new Thread(() -> {
             boolean gameWon = false;
+            int rounds = 0; // Track the number of rounds
             while (!gameWon) {
+                rounds++; // Increment the round counter
                 Object[] rowData = new Object[numberOfPlayers];
                 for (int i = 0; i < numberOfPlayers; i++) {
                     Player player = playerList.getPlayers().get(i);
@@ -74,9 +82,21 @@ public class playScreen {
                     playerList.setPlayerScore(i, player.getScore() + score);
                     rowData[i] = player.getName() + " scored " + score + " points for the round";
                     System.out.println("Player " + player.getName() + " has " + player.getScore() + " points.");
-                    if (player.getScore() >= Referee.WINNING_SCORE) { // Use Referee's WINNING_SCORE
+                    if (player.getScore() >= Referee.getWinningScore()) { // Use dynamic winning score
                         System.out.println("Player " + player.getName() + " wins!");
                         gameWon = true;
+
+                        // Log the game into shared GameHistory
+                        List<String> playerNames = new ArrayList<>();
+                        List<String> playerTypes = new ArrayList<>();
+                        List<Integer> playerScores = new ArrayList<>();
+                        for (int j = 0; j < numberOfPlayers; j++) {
+                            playerNames.add(playerList.getPlayerName(j));
+                            playerTypes.add(playerList.getPlayers().get(j).getClass().getSimpleName());
+                            playerScores.add(playerList.getPlayerScore(j));
+                        }
+                        gameOver.addGameToHistory(playerNames, playerTypes, playerScores, player.getName(), Referee.getWinningScore(), player.getScore(), rounds);
+
                         SwingUtilities.invokeLater(() -> gameOver.end(player.getName(), player.getScore()));
                         break;
                     }

@@ -11,7 +11,6 @@
 /********************************************************/
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 /**
  * The ScoreboardView class provides a way to display the scores of players

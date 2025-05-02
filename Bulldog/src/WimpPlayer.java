@@ -1,11 +1,11 @@
 /********************************************************/
 /* David Levine                                         */
-/* Login ID: david.b.levine@maine.edu                   */
-/* COS 497, Summer 2024                                 */
+/* Login ID: david.b.levine@maine.edu 					*/
+/* 			 courtney.jackson@maine.edu					*/
+/* COS 420, Spring 2025                                 */
 /* Programming Assignment 6                             */
 /* WimpPlayer class: extends Player class               */
 /*           A WimpPlayer always rolls the die once     */
-/*      See Kettering University, CS-101, Prog 6        */
 /********************************************************/
 
 public class WimpPlayer extends Player {

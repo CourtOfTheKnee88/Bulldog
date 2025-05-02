@@ -1,6 +1,6 @@
 public class Referee {
     private static Referee instance;
-    public static final int WINNING_SCORE = 104; // Define the winning score
+    private static int winningScore = 104; // Default winning score
 
     private Referee() {
         // Private constructor to prevent instantiation
@@ -13,12 +13,36 @@ public class Referee {
         return instance;
     }
 
+    /********************************************************/
+    /* Method: setWinningScore                              */
+    /* Purpose: Set the winning score for the game          */
+    /* Parameters:                                          */
+    /*   int score - the desired winning score              */
+    /* Returns:                                             */
+    /*   none                                               */
+    /********************************************************/
+    public static void setWinningScore(int score) {
+        winningScore = score;
+    }
+
+    /********************************************************/
+    /* Method: getWinningScore                              */
+    /* Purpose: Get the current winning score               */
+    /* Parameters:                                          */
+    /*   none                                               */
+    /* Returns:                                             */
+    /*   int - the current winning score                    */
+    /********************************************************/
+    public static int getWinningScore() {
+        return winningScore;
+    }
+
     public void announceWinner(String playerName) {
         System.out.println("Player " + playerName + " wins!");
     }
 
     public boolean hasPlayerWon(int score) {
-        return score >= WINNING_SCORE; // Use the constant WINNING_SCORE
+        return score >= winningScore; // Use the dynamic winningScore
     }
 
     public void playGame(PlayerList playerList) {

@@ -1,11 +1,11 @@
 /********************************************************/
 /* David Levine                                         */
 /* Login ID: david.b.levine@maine.edu                   */
-/* COS 497, Summer 2024                                 */
+/* 			 courtney.jackson@maine.edu					*/
+/* COS 420, Spring 2025                                 */
 /* Programming Assignment 6                             */
 /* abstract Player class: holds generic info about a    */
 /*           player of the game Bulldog                 */
-/*      See Kettering University, CS-101, Prog 6        */
 /********************************************************/
 
 public abstract class Player {
